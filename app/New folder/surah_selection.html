@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surah Selection</title>
+<link href="https://fonts.googleapis.com/css2?family=Madani&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/styles.css">
+<script src="static/js/track.js" defer></script>
+<style>
+    /* Define Koufi font */
+    #surah-text p {
+        font-family: 'Koufi', sans-serif;
+        text-align: center; /* Center the text */
+        font-size: 28px; /* Adjust font size */
+        font-weight: bold; /* Make it bold */
+    }
+    
+    .surah-container {
+        display: flex; /* Use flexbox layout */
+        align-items: center; /* Center items vertically */
+    }
+    
+    .start-reading-button {
+        margin-right: auto; /* Push the button to the left */
+    }
+    
+    #live-transcription {
+        margin-top: 20px;
+        padding: 20px;
+        border: 5px solid #11111117;
+        border-radius: 20px;
+        background-color: #f9f9f98c;
+        font-family:  sans-serif;
+        font-size: 18px;
+        text-align: right;
+        direction: rtl;
+    }
+
+    #live-transcription-container {
+        
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        background-color: #ffffff;
+        text-align: right;
+        direction: rtl;
+    }
+
+    #live-transcription-container h3 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #live-transcription {
+        font-family: 'Madani', sans-serif;
+        font-size: 18px;
+    }
+</style>
+</head>
+<body>
+<header>
+<h1>Quran Recognition with Correction</h1>
+</header>
+<main>
+<div class="container">
+<h2>قم بتحديد سورة ثم اضغط على زر ابدأ القراءة</h2>
+<button id="start-reading-button" role="button" aria-label="Start Reading">بدا القراءة</button>
+
+<select id="surah-dropdown" aria-label="Select a Surah">
+    {% for surah in surah_names %}
+    <option value="{{ surah }}">{{ surah }}</option>
+    {% endfor %}
+</select>
+<button id="start-reading" role="button" aria-label="Start Reading">تحديد</button>
+</div>
+<!-- Add the div for the text here -->
+<div id="surah-text">
+    <p>بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+</div>
+<div id="surah-display" class="surah-page-container centered">
+    
+<!-- Surah pages will be displayed here -->
+<div id="surah-page" class="surah-page page-content rtl"></div>
+
+<!-- <div class="start-reading-button">
+    <button id="start-reading-button" role="button" aria-label="Start Reading">بدا القراءة</button>
+</div> -->
+<!-- <div class="navigation">
+    <button id="prev-page" role="button" aria-label="Previous Page">الصفحة السابقة</button>
+    <button id="next-page" role="button" aria-label="Next Page">الصفحة التالية</button>
+</div> -->
+<!-- Add a loading indicator or error message container here -->
+<div id="loading-indicator" style="display: none;">Loading...</div>
+<div id="error-message" style="display: none; color: red;"></div>
+</div>
+    
+<!-- Add the live transcription container here -->
+<div id="live-transcription-container">
+    <h3>النص المنطوق:</h3>
+    <div id="live-transcription"></div>
+</div>
+</main>
+<footer>
+<p>Copy right, 2024, Professor Moustafa Elshafei,Zewail City, Egypt</p>
+</footer>
+</body>
+</html>

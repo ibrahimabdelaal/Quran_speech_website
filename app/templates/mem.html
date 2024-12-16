@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mem</title>
+<link href="https://fonts.googleapis.com/css2?family=Madani&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.14.0/dist/ort.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.19/dist/bundle.min.js"></script>
+
+<link rel="stylesheet" href="static/css/style.css">
+<script src="static/js/Memorize.js" defer></script>
+
+<style>
+    /* Define Koufi font */
+    #surah-text p {
+        font-family: 'Koufi', sans-serif;
+        text-align: center; /* Center the text */
+        font-size: 28px; /* Adjust font size */
+        font-weight: bold; /* Make it bold */
+    }
+    
+    .surah-container {
+        display: flex; /* Use flexbox layout */
+        align-items: center; /* Center items vertically */
+    }
+    
+    .start-reading-button {
+        margin-right: right; /* Push the button to the left */
+    }
+    
+    #live-transcription-container {
+        max-width:1200px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        background-color: #ffffff;
+        text-align: right;
+        direction: rtl;
+        font-size:25px;
+    } 
+
+    #live-transcription-container h3 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #live-transcription {
+        font-family: 'Madani', sans-serif;
+        font-size: 18px;
+    } 
+
+    .highlightRight {
+        background-color: green;
+        color: white;
+    }
+
+    .highlightWrong {
+        background-color: red;
+        color: white;
+    }
+
+    .highlightInserted {
+        background-color: yellow;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>قرءاة القران الكريم مع التصحيح</h1> <!-- Header in Arabic -->
+    </header>
+
+<main>
+<div class="container">
+    <h2>قم بتحديد سورة ثم اضغط على زر ابدأ القراءة</h2>
+    <div class="surah-selection">
+        <select id="surah-select" onchange="loadVerses(this.value)">
+            <option value="">-- اختر سورة --</option>
+            {% for surah in surahs %}
+                <option value="{{ surah.id }}">{{ surah.surah_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<!-- Live transcription container -->
+<div id="live-transcription-container">
+    <h3>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</h3>
+    <button id="start-recognition">ابدأ التسجيل</button>
+    <div id="live-transcription"></div>
+
+    <!-- Div for displaying verses -->
+    <div id="verse-text-display">
+        <p>اختر سورة لتبدا القراءة</p> <!-- Default verse -->
+    </div>
+</div>
+
+<footer>
+<p>Copy right, 2024, Professor Moustafa Elshafei, Zewail City, Egypt</p>
+</footer>
+
+</body>
+</html>

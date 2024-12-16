@@ -1,0 +1,31 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Quran Recitation App</title>
+    
+    <link rel="stylesheet" href="static\css\style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Quran Recitation App</h1>
+        <h2> تحويل القرءان الكريم المنطوق الى نصوص باستخدام المقاطع الصوتية </h1>
+    </header>
+    <main>
+        <div class="container">
+            <p><strong><span style="font-size: larger;">نموذج تحويل الصوت إلى نص وتصحيح الأخطاء الصوتية هو تطبيق يسمح للمستخدمين بتسجيل الصوت وتحويل النصوص القرآنية المسموعة إلى نص مكتوب بدقة عالية. يمكن للمستخدمين ببساطة بدء التسجيل وتحويل الآيات القرآنية إلى نص مكتوب، مما يسهل عليهم الوصول إلى الكلمات والمعاني بسرعة وسهولة. بالإضافة إلى ذلك، يتيح التطبيق للمستخدمين استماع الآيات القرآنية بالطريقة التي يرغبون فيها، مع إمكانية تصحيح الأخطاء الصوتية وضمان دقة وموثوقية النص الناتج. هذا التطبيق يعتبر أداة مفيدة للأشخاص الذين يرغبون في دراسة وفهم النصوص القرآنية بشكل أفضل وأسرع</span></strong></p>
+            <div class="options">
+                <a href="{{ url_for('recite_correct') }}" class="option"><strong>قرءاة القرءان مع التصحيح</strong></a>
+
+            </div>   
+        </div>
+    </main>
+    <footer>
+        <p>Copy right, 2024, Professor Moustafa Elshafei,Zewail City, Egypt</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/wav-encoder@1.0.0/dist/wav-encoder.min.js"></script>
+</body>
+</html>

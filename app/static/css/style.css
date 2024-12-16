@@ -1,0 +1,294 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    text-align: right; /* Align text to the right */
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+.correct {
+    background-color: green;
+    color: white;
+}
+.missed {
+    background-color: red;
+    color: white;
+}
+.wrong {
+    background-color: orange;
+    color: white;
+}
+.inserted {
+    background-color: blue;
+    color: white;
+}
+
+/* Header Styles */
+header {
+    background-color: #d0d4d1;
+    color: white;
+    padding: 5px 0;
+    text-align: center;
+}
+
+/* Container Styles */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Verse List Styles */
+.verse-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f9f9f9;
+    direction: ltr; /* Set direction to right-to-left */
+    text-align: right; /* Align text to the right */
+   
+}
+
+/* Verse Item Styles */
+.verse-item {
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+    font-family: "Madani", sans-serif; /* Set the font family */
+    font-weight: bold; /* Set the font weight to bold */
+    font-size: 1.1em; /* Set a larger font size */
+}
+
+.verse-item:hover {
+    background-color: #e9e9e9;
+}
+
+/* Verse Text Container Styles */
+.verse-text-container {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #d0d4d1;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    font-family: "Madani"; /* Set the font family */
+    font-weight: bold; /* Set the font weight to bold */
+    font-size: 1.1em; /* Set a larger font size */
+}
+
+/* Record Container Styles */
+.record-container {
+    display: flex;
+    justify-content: center; /* Center the recording section */
+    margin-top: 20px;
+}
+
+.recording-section {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+    width: 100%; /* Full width for better alignment */
+    max-width: 1200px; /* Set a maximum width for the recording section */
+    padding: 20px; /* Add some padding for better spacing */
+    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    background-color: #f9f9f9; /* Optional: Set a background color */
+    margin-bottom:55px; /* Add margin to the bottom to prevent overlap with footer */
+}
+
+/* Transcription Container Styles */
+.transcription-container {
+    margin-top: 10px; /* Space above the transcription */
+    padding: 10px;
+    border: 1px solid #d0d4d1;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    width: 90%; /* Set a specific width for the transcription container */
+    max-width: 2000px; /* Maximum width for the transcription container */
+    text-align: right; /* Align text to the right */
+    font-size: 30px;
+}
+
+/* Record Button Styles */
+#start-recognition {
+    margin-bottom: 10px; /* Space between button and transcription */
+    padding: 10px 20px;
+    background-color: #c4d1c5;
+    color: rgb(14, 13, 13);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center; /* Center text inside the button */
+    width: 100%; /* Make the button full width */
+    max-width: 200px; /* Set a max width for the button */
+}
+
+#start-recognition:hover {
+    background-color: #45a049;
+}
+
+/* Audio Control Styles */
+audio {
+    margin-top: 10px; /* Space between transcription and audio controls */
+    width: 50%; /* Full width for audio controls */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 0px 0;
+    background-color: #4CAF50;
+    color: white;
+    position: fixed; /* Fix the footer to the bottom */
+    bottom: 0; /* Position it at the bottom */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.highlightWrong {
+    background-color: rgb(255, 0, 0); /* Highlight color for incorrect words */
+    color: rgb(15, 15, 15); /* Text color for highlighted words */
+    padding: 2px; /* Add some padding for better visibility */
+    border-radius: 3px; /* Rounded corners */
+}
+
+.highlightright {
+    background-color: rgb(39, 189, 57); /* Highlight color for correct words */
+    color: rgb(22, 21, 21); /* Text color for highlighted words */
+    padding: 2px; /* Add some padding for better visibility */
+    border-radius: 3px; /* Rounded corners */
+}
+.highlighdeleted {
+    background-color: rgb(194, 190, 212); /* Highlight color for correct words */
+    color: white; /* Text color for highlighted words */
+    padding: 2px; /* Add some padding for better visibility */
+    border-radius: 3px; /* Rounded corners */
+}
+
+.highlighInserted {
+    background-color: rgb(205, 240, 78); /* Highlight color for correct words */
+    color: white; /* Text color for highlighted words */
+    padding: 2px; /* Add some padding for better visibility */
+    border-radius: 3px; /* Rounded corners */
+}
+#surah-select {
+    width: 100%; /* Make the dropdown full width */
+    max-width: 400px; /* Set a max width if needed */
+    padding: 10px; /* Add some padding for better appearance */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border style */
+    font-size: 1em; /* Adjust font size if needed */
+    align-items: right;
+}
+/* Style for the verse container */
+.verse-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style for the audio player */
+.small-audio {
+    width: 150px; /* Set smaller width */
+    height: 30px; /* Set smaller height */
+    margin-left: 10px; /* Add spacing between audio and text */
+}
+
+/* Style for the verse text */
+.verse-text {
+    flex: 1; /* Allow text to take the remaining space */
+    cursor: pointer; /* Show pointer cursor for clickable text */
+    font-size: 1.1em; /* Adjust font size */
+    line-height: 1.5;
+}
+
+/* Optional: Style for the list item */
+.verse-item {
+    list-style: none; /* Remove bullets */
+}
+/* Style for the audio player in the verse display */
+.verse-audio {
+    margin-top: 10px; /* Add space between text and audio player */
+    width: 200px; /* Set a suitable width for the player */
+    height: 30px; /* Adjust height to match small controls */
+}
+/* Flex container for verse text and audio */
+.verse-display-flex {
+    display: flex;
+    flex-direction: row-reverse; /* Place audio on the left */
+
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add space between audio and text */
+}
+
+/* Style for the audio player */
+.verse-audio {
+    width: 150px; /* Set a smaller width for the player */
+    height: 25px; /* Adjust height for small controls */
+}
+
+/* Style for the verse text */
+.verse-text {
+    flex: 1; /* Allow the text to take up remaining space */
+    font-size: 1.2em; /* Adjust font size */
+}
+
+/* Style for "no audio available" message */
+.no-audio-message {
+    color: red; /* Highlight in red */
+    font-size: 0.9em; /* Smaller font size */
+    margin: 0;
+}
+#verse-text-display {
+    font-family: 'Koufi', sans-serif; /* Elegant Arabic font */
+    font-size: 28px; /* Adjust font size for readability */
+    text-align: justify; /* Justify the text for a clean layout */
+    margin: 20px 0; /* Add vertical margin */
+    padding: 20px; /* Add padding inside the container */
+    line-height: 2; /* Increase line spacing for readability */
+    direction: rtl; /* Right-to-left direction for Arabic text */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border: 1px solid #dddddd; /* Subtle border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+.surah-selection {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: flex-end; /* Align items to the right */
+    margin: 10px 0; /* Add vertical margin */
+}
+
+.surah-selection label {
+    margin-left: 10px; /* Add spacing between label and dropdown */
+    font-family: 'Koufi', sans-serif; /* Match font style */
+    font-size: 18px; /* Adjust font size for consistency */
+    font-weight: bold; /* Make the label text bold */
+}
+
+.surah-selection select {
+    font-family: 'Koufi', sans-serif; /* Match font style */
+    font-size: 16px; /* Adjust font size for readability */
+    padding: 5px; /* Add padding inside the dropdown */
+    border: 1px solid #cccccc; /* Add a border for the dropdown */
+    border-radius: 5px; /* Round the corners */
+    background-color: #ffffff; /* White background */
+    direction: rtl; /* Right-to-left text direction for Arabic */
+}

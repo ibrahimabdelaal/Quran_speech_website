@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"> <!-- Set the language to Arabic and direction to RTL -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" defer>
+    <title>اختيار السورة والآية</title> <!-- Title in Arabic -->
+    
+    <script>
+        let versesData = {}; // Object to store verses for each surah
+        let currentVerseIndex = -1; // Track the current verse index
+        let currentVerses = []; // Store the current list of verses for navigation
+
+        function loadVerses(surahId) {
+            const verseList = document.getElementById("verse-list");
+            verseList.innerHTML = ""; // Clear previous verses
+            document.getElementById("verse-text-display").innerHTML = "<p>اختر آية لرؤية نصها هنا.</p>"; // Default text in Arabic
+            currentVerseIndex = -1; // Reset index
+            currentVerses = []; // Reset verses list
+
+            if (versesData[surahId]) {
+                currentVerses = versesData[surahId];
+                populateVerseList(versesData[surahId]);
+            } else {
+                fetch(`/api/verses/${surahId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        currentVerses = data; // Store fetched verses
+                        versesData[surahId] = data;
+                        populateVerseList(data);
+                    })
+                    .catch(error => console.error('Error fetching verses:', error));
+            }
+        }
+
+        function populateVerseList(verses) {
+            const verseList = document.getElementById("verse-list");
+            verses.forEach(verse => {
+                const listItem = document.createElement("li");
+                listItem.className = "verse-item";
+
+                // Create a container for audio and verse text
+                const container = document.createElement("div");
+                container.className = "verse-container";
+
+                if (verse.audio) {
+                    // Create a smaller audio element
+                    const audioElement = document.createElement("audio");
+                    audioElement.controls = true;
+                    audioElement.className = "small-audio"; // Add a CSS class for styling
+                    audioElement.src = `data:audio/wav;base64,${verse.audio}`; // Use Base64 data URI
+                    container.appendChild(audioElement);
+                } else {
+                    const noAudioMessage = document.createElement("span");
+                    noAudioMessage.innerText = "لا يوجد تسجيل."; // "No recording available" in Arabic
+                    container.appendChild(noAudioMessage);
+                }
+
+                const verseText = document.createElement("span");
+                verseText.className = "verse-text";
+                verseText.innerText = `آية ${verse.verse_number}: ${verse.syllables}`;
+                verseText.onclick = () => {
+                    currentVerseIndex = verses.indexOf(verse); // Set the current index
+                    displayVerseText(verse.verse_number, verse.text, verse.syllables, verse.audio);
+                };
+
+                container.appendChild(verseText);
+                listItem.appendChild(container);
+                verseList.appendChild(listItem);
+            });
+        }
+
+        function displayVerseText(verseNumber, verseText, verseSyllables, verseAudio) {
+            const verseTextContainer = document.getElementById("verse-text-display");
+
+            // Clear existing content
+            verseTextContainer.innerHTML = "";
+
+            // Create a flex container
+            const flexContainer = document.createElement("div");
+            flexContainer.className = "verse-display-flex";
+
+            // Add the audio player if audio is available
+            if (verseAudio) {
+                const audioElement = document.createElement("audio");
+                audioElement.controls = true; // Show audio controls
+                audioElement.src = `data:audio/wav;base64,${verseAudio}`; // Use Base64-encoded audio
+                audioElement.className = "verse-audio"; // Add a CSS class for styling
+
+                // Add the audio player to the flex container
+                flexContainer.appendChild(audioElement);
+            } else {
+                const noAudioMessage = document.createElement("p");
+                noAudioMessage.innerText = "لا يوجد تسجيل لهذه الآية."; // "No recording available" in Arabic
+                noAudioMessage.className = "no-audio-message"; // CSS class for styling
+                flexContainer.appendChild(noAudioMessage);
+            }
+
+            // Add the verse text
+            const textElement = document.createElement("div");
+            textElement.className = "verse-text";
+            textElement.innerHTML = `
+                <strong>آية ${verseNumber}:</strong> ${verseText}
+            `;
+            flexContainer.appendChild(textElement);
+
+            // Append the flex container to the verse text container
+            verseTextContainer.appendChild(flexContainer);
+
+            // Add the "Next" button
+            const nextButton = document.createElement("button");
+            nextButton.id = "next-verse-button";
+            nextButton.innerText = "التالى"; // "Next" in Arabic
+            nextButton.onclick = nextVerse;
+            verseTextContainer.appendChild(nextButton);
+
+            // Set syllables as a data attribute
+            verseTextContainer.dataset.syllables = verseSyllables;
+
+            // Scroll into view
+            verseTextContainer.scrollIntoView({ behavior: "smooth" });
+        }
+
+        function nextVerse() {
+            if (currentVerseIndex + 1 < currentVerses.length) {
+                currentVerseIndex++; // Increment index
+                const nextVerse = currentVerses[currentVerseIndex];
+                displayVerseText(nextVerse.verse_number, nextVerse.text, nextVerse.syllables, nextVerse.audio);
+            } else {
+                alert("لا توجد آيات أخرى."); // No more verses
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>تطبيق القران الكريم مع التصحيح </h1> <!-- Header in Arabic -->
+    </header>
+
+    <div class="container">
+        <label for="surah-select">اختر سورة:</label> <!-- Label in Arabic -->
+        <select id="surah-select" onchange="loadVerses(this.value)">
+            <option value="">-- اختر سورة --</option> <!-- Default option in Arabic -->
+            {% for surah in surahs %}
+                <option value="{{ surah.id }}">{{ surah.surah_name }}</option>
+            {% endfor %}
+        </select>
+
+        <h2>الآيات:</h2> <!-- Heading in Arabic -->
+        <ul class="verse-list" id="verse-list">
+            <!-- Verses will be populated here -->
+        </ul>
+
+        <div class="verse-text-container" id="verse-text-display">
+            <h3>الآية المختارة:</h3> <!-- Section heading in Arabic -->
+            <p>اختر آية لرؤية نصها هنا.</p> <!-- Default text in Arabic -->
+        </div>
+    </div>
+
+    <div class="record-container">
+        <div class="recording-section">
+            <button id="start-recognition">ابدأ التسجيل</button>
+            <div id="transcription" class="transcription-container"></div> <!-- Transcription container -->
+            <audio id="recorded-audio" controls></audio> <!-- Audio controls below transcription -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 مشروع القرآن. جميع الحقوق محفوظة.</p> <!-- Footer in Arabic -->
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
+</body>
+</html>

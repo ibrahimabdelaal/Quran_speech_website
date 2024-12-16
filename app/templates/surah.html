@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ surah.surah_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .verse-list {
+            list-style-type: none;
+            padding: 0;
+            max-height: 400px; /* Limit height to allow scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            border: 1px solid #ccc; /* Add a border */
+            border-radius: 4px; /* Round corners */
+        }
+
+        .verse-item {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+
+        .verse-item:hover {
+            background-color: #e9e9e9;
+        }
+
+        .verse-text-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            transition: max-height 0.3s ease; /* Smooth transition */
+        }
+    </style>
+    <script>
+        function displayVerseText(verseNumber, verseText) {
+            var verseTextContainer = document.getElementById("verse-text-display");
+            verseTextContainer.innerHTML = "<strong>Verse " + verseNumber + ":</strong> " + verseText;
+            // Smooth scroll to the verse text container
+            verseTextContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ surah.surah_name }}</h1>
+        <ul class="verse-list">
+            {% for verse in verses %}
+                <li class="verse-item" onclick="displayVerseText({{ verse.verse_number }}, '{{ verse.text | escape }}')">
+                    Verse {{ verse.verse_number }}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="verse-text-container" id="verse-text-display">
+            <h2>Selected Verse:</h2>
+            <p>Select a verse to see its text here.</p>
+        </div>
+    </div>
+</body>
+</html>
