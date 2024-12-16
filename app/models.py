@@ -26,7 +26,7 @@ db = SQLAlchemy()
 
 def load_models():
     print("Loading models...")
-    LMprocessor = Wav2Vec2ProcessorWithLM.from_pretrained('IbrahimSalah/Wav2vecXXl_quran_syllables')
+    LMprocessor ='' #Wav2Vec2ProcessorWithLM.from_pretrained('IbrahimSalah/Wav2vecXXl_quran_syllables')
     processor=Wav2Vec2Processor.from_pretrained('IbrahimSalah/Wav2vecXXl_quran_syllables')
     model = Wav2Vec2ForCTC.from_pretrained("IbrahimSalah/Wav2vecXXl_quran_syllables")
     print("Models loaded successfully.")
